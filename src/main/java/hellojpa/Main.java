@@ -72,7 +72,8 @@ public class Main {
 
 
             //검색
-//            String jsql = "select m from Member m join fetch m.team where m.name like '%hello%'"; // fetch jsql 개쩔어 소오름
+//            String jsql = "select m from Member m join fetch m.team where m.name like '%hello%'"; // fetch jsql 개쩔어 소오름 :
+//            하지만 QueryDSL 이 더쩔어!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //            List<Member> result = em.createQuery(jsql,Member.class)
 //                    .setFirstResult(10) //페이징
 //                    .setMaxResults(20)
