@@ -60,7 +60,7 @@ public class Main {
             //  em.close()하고 findTeam을 건들면 LazyInitializatioinException에러 터진다
             //  => findTeam.getName() 하는 순간에 findTeam 객체에 진짜 team 객체가 담긴다
 
-//           em.detach(findMember); // 준영속 상태로 전환한다 => findMember : 더이상 디비에 반영 안된다, 변경감지가 다 안됨됨
+//           em.detach(findMember); // 준영속 상태로 전환한다 => findMember : 더이상 디비에 반영 안된다, 변경감지가 다 안됨
 //            findMember.setName("t아카데미"); // 이것만 하고나서, commit() 해주면 알아서 반영된다 ㅁㅊ
 
             //참조를 사용하여 연관관계 조회
@@ -71,10 +71,12 @@ public class Main {
 //            }
 
 
-
             //검색
             String jsql = "select m from Member m join fetch m.team where m.name like '%hello%'"; // fetch jsql 개쩔어 소오름
-            List<Member> result = em.createQuery(jsql,Member.class).getResultList();
+            List<Member> result = em.createQuery(jsql,Member.class)
+                    .setFirstResult(10) //페이징
+                    .setMaxResults(20)
+                    .getResultList();
 
             // 커밋하는 순간 디비에 INSERT SQL을 보낸다
             // commit : 자동으로 DB에에 flush 후 comit 한다 [트랜잭션 commit]
