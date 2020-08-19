@@ -45,17 +45,17 @@ public class Main {
             member.setTeam(team); // : 주인에게만 추가를 해준다
             // 하지만 실제 코드에서는 양쪽 다 입력해준다 : 객체관계를 고려
 
-            em.flush();
+//            em.flush();
             // flush 할 떄 실제 쿼리들이 DB에 날라간다 , 변경감지(더티체킹)이 일어난다.
             // em.createQuery 하면 자동으로 flush 된다
             // 영속성 컨택스트를 비우는게 아니라 => 영속성 컨택스트의 변경내용을 디비에 동기화한다.
-            em.clear(); // 영속성 컨택스트 완전히 초기화: 영속성 컨택스트에서 캐쉬를 다 지워버린다
+//            em.clear(); // 영속성 컨택스트 완전히 초기화: 영속성 컨택스트에서 캐쉬를 다 지워버린다
 
 
             //조회 : 1차 캐시에서 조회
-            Member findMember = em.find(Member.class, member.getId()); // 영속상태
+//            Member findMember = em.find(Member.class, member.getId()); // 영속상태
 //            em.close(); // 영속성 컨택스트 종료
-            Team findTeam = findMember.getTeam(); // Member에서 Team은 LAZY로 fetch되어있으므로 findTeam 객체는 proxy객체(가짜객체)가 담긴다
+//            Team findTeam = findMember.getTeam(); // Member에서 Team은 LAZY로 fetch되어있으므로 findTeam 객체는 proxy객체(가짜객체)가 담긴다
 //            System.out.println("findTeam = "+findTeam);
             //  em.close()하고 findTeam을 건들면 LazyInitializatioinException에러 터진다
             //  => findTeam.getName() 하는 순간에 findTeam 객체에 진짜 team 객체가 담긴다
@@ -70,6 +70,11 @@ public class Main {
 //                System.out.println("member1 = "+member1.toString());
 //            }
 
+
+
+            //검색
+            String jsql = "select m from Member m join fetch m.team where m.name like '%hello%'"; // fetch jsql 개쩔어 소오름
+            List<Member> result = em.createQuery(jsql,Member.class).getResultList();
 
             // 커밋하는 순간 디비에 INSERT SQL을 보낸다
             // commit : 자동으로 DB에에 flush 후 comit 한다 [트랜잭션 commit]
