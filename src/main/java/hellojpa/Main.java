@@ -72,11 +72,11 @@ public class Main {
 
 
             //검색
-            String jsql = "select m from Member m join fetch m.team where m.name like '%hello%'"; // fetch jsql 개쩔어 소오름
-            List<Member> result = em.createQuery(jsql,Member.class)
-                    .setFirstResult(10) //페이징
-                    .setMaxResults(20)
-                    .getResultList();
+//            String jsql = "select m from Member m join fetch m.team where m.name like '%hello%'"; // fetch jsql 개쩔어 소오름
+//            List<Member> result = em.createQuery(jsql,Member.class)
+//                    .setFirstResult(10) //페이징
+//                    .setMaxResults(20)
+//                    .getResultList();
 
             // 커밋하는 순간 디비에 INSERT SQL을 보낸다
             // commit : 자동으로 DB에에 flush 후 comit 한다 [트랜잭션 commit]
