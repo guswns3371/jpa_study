@@ -16,7 +16,10 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Lazy : 지연로딩 :권장한다
+    @ManyToOne(fetch = FetchType.LAZY)
+    // EAGER은 비추 => 왠만하면 지연로딩을 사용해라 => ManyToOne,OneToOne 기본이 EAGER이므로 LAZY로 설정해줘라
+    // Lazy : 지연로딩 :권장한다 : member조회시 team은 같이 조회되지 않는다 => 대신 team은 proxy객체라는 가짜 객체로 대체된다
+    // member.getTeam().getName() 할때! = 실제 team을 사용하는 시점에서 team객체가 초기화된다.
     @JoinColumn(name = "TEAM_ID") // jpa 에게 연관관계 매핑한다는걸 알려준다
     private Team team;
 
